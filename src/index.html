@@ -30,11 +30,18 @@
       <h1>{{applicationName}}</h1>
       <ul ng-repeat="item in allItems">
         <li>
-          <div>
+          <div ng-hide='editingmode' ng-dblclick='editingmode = true'>
             {{item.description}}
             <button ng-click='deleteItem(item)'>delete</button>
-            
+            <button ng-click='editingmode = true' ng-hide='editingmode'>edit</button>
+            <form>
+              <input ng-change='itemStatus(item)'  ng-model='item.done' type="checkbox" name="done" id="done">
+              <label for="done">done</label>   
+            </form>
           </div>
+            <form ng-submit="changeItem(item) ; editingmode = false" ng-show='editingmode'>
+              <input type="text" ng-model="item.description" name="description" >
+            </form>
         </li>
       </ul>
       

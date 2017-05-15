@@ -4,6 +4,7 @@ app.controller(
   'todo-list-controller', function($scope, $http){
     $scope.applicationName = 'Todo List';
     $scope.allItems = []
+    $scope.edittingmode = false
 
     $http.get('http://localhost:3000/items.json').then(
       function(success){
@@ -40,6 +41,41 @@ app.controller(
         }
 
        );  
+    }
+
+
+    $scope.changeItem = function(item) { 
+
+      var y = {
+        description: item.description
+      }
+      $http.put('http://localhost:3000/items/'+item.id+'.json',{item: y}).then(
+        function(success){
+          item = success.data;
+        
+        },
+        function(err){
+          console.log("eroooooor")
+        }
+
+       );  
+    }
+
+    $scope.itemStatus = function(item) {
+      var z = {
+        done: item.done
+      }
+      $http.put('http://localhost:3000/items/'+item.id+'.json',{item: z}).then(
+        function(success){
+          item = success.data;
+        
+        },
+        function(err){
+          console.log("eroooooor")
+        }
+
+       ); 
+
     }
 
 
