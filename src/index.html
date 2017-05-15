@@ -18,9 +18,27 @@
     <!-- endbuild -->
   </head>
 
+  
 
-  <body ng-app="app">
-    <app>Loading...</app>
+  <body ng-app="todo-list">
+    <div ng-controller="todo-list-controller">
+      <form ng-submit="addNewItem()">
+        <label for="description">New Item</label>
+        <input type="text" name="description" ng-model="itemDescription" required id="description">
+        <button type="submit">Submit</button>
+      </form>
+      <h1>{{applicationName}}</h1>
+      <ul ng-repeat="item in allItems">
+        <li>
+          <div>
+            {{item.description}}
+            <button ng-click='deleteItem(item)'>delete</button>
+            
+          </div>
+        </li>
+      </ul>
+      
+    </div>
   </body>
 
   <!-- build:js({.tmp,src}) scripts/vendor.js -->
