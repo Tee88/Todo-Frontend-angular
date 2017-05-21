@@ -1,7 +1,8 @@
-var app = angular.module('todo-list', []);
+var app = angular.module('todo-list', ['ng-token-auth']);
+
 
 app.controller(
-  'todo-list-controller', function($scope, $http){
+  'todo-list-controller', function($scope, $http, $auth){
     $scope.applicationName = 'Todo List';
     $scope.allItems = []
     $scope.edittingmode = false
@@ -78,5 +79,22 @@ app.controller(
 
     }
 
+    // ############################ AUTHENTICATION #############################
 
+    $scope.handleRegBtnClick = function() {
+        $auth.submitRegistration($scope.registrationForm)
+          .then(function(resp) {
+            // handle success response
+          })
+          .catch(function(resp) {
+            // handle error response
+          });
+      };
+
+  });
+app.config(function($authProvider) {
+    $authProvider.configure({
+      apiUrl: 'http://localhost:3000',
+      validateOnPageLoad: false
+    });
   });
